@@ -6,7 +6,6 @@ import com.hrznstudio.titanium.network.locator.instance.InventoryStackLocatorIns
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.packet.ReplaceUpgradePayload;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -56,12 +55,7 @@ public class BaseUpgradeMenu extends BasicAddonContainer {
     }
 
     public void notifyRebuild() {
-        if (getPlayerInventory().player.level().isClientSide) {
-            PacketDistributor.sendToServer(new ReplaceUpgradePayload(slot, getUpgrade().copy()));
-        } else {
-            throw null;
-//            PacketDistributor.sendToPlayer((ServerPlayer) getPlayerInventory().player, new ReplaceUpgradePayload(slot, getUpgrade().copy()));
-        }
+        PacketDistributor.sendToServer(new ReplaceUpgradePayload(slot, getUpgrade().copy()));
     }
 
     @Override

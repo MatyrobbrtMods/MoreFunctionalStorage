@@ -4,6 +4,7 @@ import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import com.hrznstudio.titanium.block.RotatableBlock;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
+import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.client.MFSClient;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
@@ -70,7 +71,7 @@ public class BreakerUpgrade extends MFSUpgrade {
     }
 
     @Override
-    protected void doWork(Level level, BlockPos drawerPos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer) {
+    protected void doWork(Level level, BlockPos drawerPos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer, UpgradeDataManager data) {
         var toolContents = upgradeStack.get(MoreFunctionalStorage.TOOL);
         if (toolContents == null) return;
         var tool = toolContents.nonEmptyStream().findFirst().orElse(null);

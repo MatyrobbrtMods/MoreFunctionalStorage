@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:ender_eye"
+    },
+    "U": {
+      "item": "morefunctionalstorage:refill_upgrade"
+    },
+    "W": {
+      "item": "minecraft:wither_skeleton_skull"
+    }
+  },
+  "pattern": [
+    " W ",
+    " U ",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "morefunctionalstorage:dimensional_refill_upgrade"
+  }
+}

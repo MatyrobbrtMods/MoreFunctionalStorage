@@ -8,6 +8,7 @@ import com.hrznstudio.titanium.block.redstone.RedstoneAction;
 import com.hrznstudio.titanium.block.redstone.RedstoneState;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
+import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.RelativeDirection;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
@@ -42,6 +43,10 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
         return false;
     }
 
+    public boolean hasDirection() {
+        return true;
+    }
+
     protected int getBaseSpeed() {
         return 1;
     }
@@ -50,7 +55,10 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (hasOwner() && !level.isClientSide() && !stack.has(MoreFunctionalStorage.OWNER) && entity instanceof Player pl) {
             stack.set(MoreFunctionalStorage.OWNER, pl.getGameProfile());
-            stack.set(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT);
+
+            if (hasDirection()) {
+                stack.set(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT);
+            }
         }
     }
 
@@ -72,7 +80,7 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
         }
     }
 
-    protected abstract void doWork(Level level, BlockPos pos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer);
+    protected abstract void doWork(Level level, BlockPos pos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer, UpgradeDataManager data);
 
     @Override
     public final void work(Level level, BlockPos pos, ItemStack upgradeStack) {
@@ -96,7 +104,7 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
                 lastRedstone.set(currentRedstone.isReceivingRedstone());
 
                 if (work) {
-                    doWork(level, pos, upgradeStack, be);
+                    doWork(level, pos, upgradeStack, be, data);
                 }
             }
         }

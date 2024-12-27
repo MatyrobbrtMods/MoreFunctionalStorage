@@ -12,9 +12,11 @@ import com.matyrobbrt.morefunctionalstorage.item.BreakerUpgrade;
 import com.matyrobbrt.morefunctionalstorage.item.FilterConfiguration;
 import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.item.PlacerUpgrade;
+import com.matyrobbrt.morefunctionalstorage.item.RefillUpgrade;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.menu.PlacerUpgradeMenu;
+import com.matyrobbrt.morefunctionalstorage.menu.RefillUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenDrawerMenuPayload;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenUpgradeMenuPayload;
 import com.matyrobbrt.morefunctionalstorage.packet.ReplaceUpgradePayload;
@@ -103,11 +105,17 @@ public class MoreFunctionalStorage {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterConfiguration>> FILTER = COMPONENTS.registerComponentType("filter", b -> b
             .persistent(FilterConfiguration.CODEC)
             .networkSynchronized(FilterConfiguration.STREAM_CODEC));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RefillUpgrade.RefillTarget>> REFILL_TARGET = COMPONENTS.registerComponentType("refill_target", b -> b
+            .persistent(RefillUpgrade.RefillTarget.CODEC)
+            .networkSynchronized(RefillUpgrade.RefillTarget.STREAM_CODEC));
 
     public static final DeferredHolder<MenuType<?>, MenuType<PlacerUpgradeMenu>> PLACER_MENU = MENUS.register("placer_upgrade", () -> createMenu(PlacerUpgradeMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<BreakerUpgradeMenu>> BREAKER_MENU = MENUS.register("breaker_upgrade", () -> createMenu(BreakerUpgradeMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<RefillUpgradeMenu>> REFILL_MENU = MENUS.register("refill_upgrade", () -> createMenu(RefillUpgradeMenu::new));
     public static final DeferredItem<PlacerUpgrade> PLACER_UPGRADE = ITEMS.register("placer_upgrade", () -> new PlacerUpgrade(new Item.Properties()));
     public static final DeferredItem<BreakerUpgrade> BREAKER_UPGRADE = ITEMS.register("breaker_upgrade", () -> new BreakerUpgrade(new Item.Properties()));
+    public static final DeferredItem<RefillUpgrade> REFILL_UPGRADE = ITEMS.register("refill_upgrade", () -> new RefillUpgrade(new Item.Properties(), false));
+    public static final DeferredItem<RefillUpgrade> DIMENSIONAL_REFILL_UPGRADE = ITEMS.register("dimensional_refill_upgrade", () -> new RefillUpgrade(new Item.Properties(), true));
 
     public static final DeferredItem<Item> SPEED_UPGRADE_AUGMENT = ITEMS.register("speed_upgrade_augment", () -> new Item(new Item.Properties()) {
         {

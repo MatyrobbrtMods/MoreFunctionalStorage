@@ -17,5 +17,12 @@ public class MFSConfig {
             .comment("The base speed (in ticks) of the Breaker Upgrade")
             .defineInRange("baseBreakerSpeed", 60, 0, Integer.MAX_VALUE);
 
+    public static final ModConfigSpec.IntValue BASE_REFILL_SPEED = BUILDER
+            .comment("The base speed (in ticks) of the Refill Upgrade")
+            .defineInRange("baseRefillSpeed", 60, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue BASE_DIMENSIONAL_REFILL_SPEED = BUILDER
+            .comment("The base speed (in ticks) of the Dimensional Refill Upgrade")
+            .defineInRange("baseDimensionalRefillSpeed", 60, 0, Integer.MAX_VALUE);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "morefunctionalstorage:item/dimensional_refill_upgrade"
+  }
+}

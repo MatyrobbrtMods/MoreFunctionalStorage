@@ -17,6 +17,7 @@ import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.client.ButtonAddon;
 import com.matyrobbrt.morefunctionalstorage.client.FiltersPanelAddon;
 import com.matyrobbrt.morefunctionalstorage.client.SlotSelectionAddon;
+import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.mixin.DrawerInfoGuiAddonAccess;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenDrawerMenuPayload;
@@ -55,6 +56,8 @@ public class BaseUpgradeScreen<T extends BaseUpgradeMenu> extends BasicContainer
             }
         }
 
+        var type = (MFSUpgrade) menu.getUpgrade().getItem();
+
         this.filterAddon = new FiltersPanelAddon(176, 10, menu);
 
         getAddons().add(new BasicScreenAddon(152, 80) {
@@ -81,39 +84,41 @@ public class BaseUpgradeScreen<T extends BaseUpgradeMenu> extends BasicContainer
             }
         });
 
-        getAddons().add(new ButtonAddon(153 - 2 * 18, 28, 14, 14) {
-            private RelativeDirection getDir() {
-                return menu.getUpgrade().getOrDefault(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT);
-            }
+        if (type.hasDirection()) {
+            getAddons().add(new ButtonAddon(153 - 2 * 18, 28, 14, 14) {
+                private RelativeDirection getDir() {
+                    return menu.getUpgrade().getOrDefault(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT);
+                }
 
-            @Override
-            public void drawBackgroundLayer(GuiGraphics guiGraphics, Screen screen, IAssetProvider provider, int guiX, int guiY, int mouseX, int mouseY, float partialTicks) {
-                var current = getDir();
-                guiGraphics.blit(DIRECTIONS_TEXTURE, this.getPosX() + guiX, this.getPosY() + guiY, current.ordinal() * 14, 0, 14, 14, 84, 14);
-            }
+                @Override
+                public void drawBackgroundLayer(GuiGraphics guiGraphics, Screen screen, IAssetProvider provider, int guiX, int guiY, int mouseX, int mouseY, float partialTicks) {
+                    var current = getDir();
+                    guiGraphics.blit(DIRECTIONS_TEXTURE, this.getPosX() + guiX, this.getPosY() + guiY, current.ordinal() * 14, 0, 14, 14, 84, 14);
+                }
 
-            @Override
-            public boolean click(double mouseX, double mouseY, int button) {
-                int dir = button == GLFW.GLFW_MOUSE_BUTTON_LEFT ? 1 : -1;
-                int next = getDir().ordinal() + dir;
-                if (next >= RelativeDirection.values().length) next = 0;
-                else if (next < 0) next = RelativeDirection.values().length - 1;
+                @Override
+                public boolean click(double mouseX, double mouseY, int button) {
+                    int dir = button == GLFW.GLFW_MOUSE_BUTTON_LEFT ? 1 : -1;
+                    int next = getDir().ordinal() + dir;
+                    if (next >= RelativeDirection.values().length) next = 0;
+                    else if (next < 0) next = RelativeDirection.values().length - 1;
 
-                menu.getUpgrade().set(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.values()[next]);
-                menu.notifyRebuild();
+                    menu.getUpgrade().set(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.values()[next]);
+                    menu.notifyRebuild();
 
-                return true;
-            }
+                    return true;
+                }
 
-            @Override
-            public List<Component> getTooltipLines() {
-                var dir = getDir();
-                var absolute = dir.getAbsolute(menu.drawer.getFacingDirection());
-                return List.of(Texts.DIRECTION.format(
-                        dir.getDisplayText().withStyle(ChatFormatting.AQUA),
-                        Component.translatable(WordUtils.capitalize(absolute.getSerializedName()))));
-            }
-        });
+                @Override
+                public List<Component> getTooltipLines() {
+                    var dir = getDir();
+                    var absolute = dir.getAbsolute(menu.drawer.getFacingDirection());
+                    return List.of(Texts.DIRECTION.format(
+                            dir.getDisplayText().withStyle(ChatFormatting.AQUA),
+                            Component.translatable(WordUtils.capitalize(absolute.getSerializedName()))));
+                }
+            });
+        }
 
         getAddons().add(new ButtonAddon(153 - 2 * 18, 28 + 14 + 3, 14, 14) {
             @Override

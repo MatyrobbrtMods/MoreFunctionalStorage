@@ -30,6 +30,7 @@ public enum Texts implements Component {
     WHITELIST_BLACKLIST("tooltip", "whitelist_blacklist", "Current filter mode is %s"),
     TOOL("tooltip", "tool", "Tool: §d%s§r"),
     NO_TOOL_INSTALLED("tooltip", "no_tool", "§cNo tool is installed! Install a tool for the upgrade to function§r"),
+    REFILL_TARGET("tooltip", "refill_target", "Refill target: %s"),
 
     SOURCE("tooltip", "source", "source"),
     DESTINATION("tooltip", "target", "target"),
@@ -44,7 +45,12 @@ public enum Texts implements Component {
     CLICK_TO_TOGGLE("tooltip", "click_to_toggle", "Click to toggle to %s"),
 
     PLACER_UPGRADE("tooltip.item", "placer_upgrade", "Places blocks from the drawer. Right click inside a drawer menu to configure"),
-    BREAKER_UPGRADE("tooltip.item", "breaker_upgrade", "Breaks blocks and inserts them into the drawer. Right click inside a drawer menu to configure\nRequires a tool to be provided (durability will not be consumed)");
+    REFILL_UPGRADE("tooltip.item", "refill_upgrade", "Refill items from the drawer into the player's hotbar, inventory or ender chest.\nRight click inside a drawer menu to configure"),
+    BREAKER_UPGRADE("tooltip.item", "breaker_upgrade", "Breaks blocks and inserts them into the drawer. Right click inside a drawer menu to configure\nRequires a tool to be provided (durability will not be consumed)"),
+
+    REFILL_HOTBAR("tooltip.refill_target", "hotbar", "hotbar"),
+    REFILL_MAIN_INV("tooltip.refill_target", "main_inv", "main inventory"),
+    REFILL_ENDER_CHEST("tooltip.refill_target", "ender_chest", "ender chest");
 
     public final String key, translated;
     private final Component text;

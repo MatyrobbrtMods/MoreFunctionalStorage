@@ -9,16 +9,24 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class UpgradeDataManager implements INBTSerializable<CompoundTag> {
     private final Item owner;
     private CompoundTag tag;
 
+    record CacheObject(Object object, Object[] keys) {}
+    private Map<String, CacheObject> cache;
+
     public UpgradeDataManager(Item owner) {
         this.owner = owner;
         this.tag = new CompoundTag();
+        cache = new HashMap<>(4);
     }
 
     @Override
@@ -29,6 +37,16 @@ public class UpgradeDataManager implements INBTSerializable<CompoundTag> {
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         tag = nbt.copy();
+        cache = new HashMap<>(4);
+    }
+
+    public <T> T getCached(String key, Supplier<T> fallback, Object... keys) {
+        var ex = cache.get(key);
+        if (ex == null || !Arrays.equals(ex.keys, keys)) {
+            ex = new CacheObject(fallback.get(), keys);
+            cache.put(key, ex);
+        }
+        return (T) ex.object;
     }
 
     public ValueHandler<Boolean> bool(String key) {

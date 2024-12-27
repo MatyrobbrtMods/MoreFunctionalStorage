@@ -44,6 +44,27 @@ public class MFSRecipe extends RecipeProvider {
                 .unlockedBy("has_drawer", has(StorageTags.DRAWER))
                 .save(output);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, MoreFunctionalStorage.REFILL_UPGRADE.toStack())
+                .pattern("RPR")
+                .pattern("PDP")
+                .pattern("RCR")
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('D', StorageTags.DRAWER)
+                .define('P', Tags.Items.ENDER_PEARLS)
+                .define('C', Tags.Items.CHESTS)
+                .unlockedBy("has_drawer", has(StorageTags.DRAWER))
+                .save(output);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, MoreFunctionalStorage.DIMENSIONAL_REFILL_UPGRADE.toStack())
+                .pattern(" W ")
+                .pattern(" U ")
+                .pattern(" P ")
+                .define('W', Items.WITHER_SKELETON_SKULL)
+                .define('U', MoreFunctionalStorage.REFILL_UPGRADE)
+                .define('P', Items.ENDER_EYE)
+                .unlockedBy("has_drawer", has(StorageTags.DRAWER))
+                .save(output);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, MoreFunctionalStorage.SPEED_UPGRADE_AUGMENT.toStack(2))
                 .pattern("RBR")
                 .pattern("BDB")

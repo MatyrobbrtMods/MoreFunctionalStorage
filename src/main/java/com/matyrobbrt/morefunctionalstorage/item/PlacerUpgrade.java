@@ -4,6 +4,7 @@ import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import com.hrznstudio.titanium.block.RotatableBlock;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
+import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.client.MFSClient;
 import com.matyrobbrt.morefunctionalstorage.menu.PlacerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
@@ -61,7 +62,7 @@ public class PlacerUpgrade extends MFSUpgrade {
     }
 
     @Override
-    protected void doWork(Level level, BlockPos pos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer) {
+    protected void doWork(Level level, BlockPos pos, ItemStack upgradeStack, ControllableDrawerTile<?> drawer, UpgradeDataManager data) {
         var dir = getDirection(level.getBlockState(pos).getValue(RotatableBlock.FACING_HORIZONTAL), upgradeStack);
         var target = pos.relative(dir);
         if (!level.getBlockState(target).canBeReplaced()) return;

@@ -14,6 +14,8 @@ public class MFSModels extends ItemModelProvider {
     protected void registerModels() {
         basicItem(MoreFunctionalStorage.PLACER_UPGRADE.asItem());
         basicItem(MoreFunctionalStorage.BREAKER_UPGRADE.asItem());
+        basicItem(MoreFunctionalStorage.REFILL_UPGRADE.asItem());
+        basicItem(MoreFunctionalStorage.DIMENSIONAL_REFILL_UPGRADE.asItem());
         basicItem(MoreFunctionalStorage.SPEED_UPGRADE_AUGMENT.asItem());
     }
 }

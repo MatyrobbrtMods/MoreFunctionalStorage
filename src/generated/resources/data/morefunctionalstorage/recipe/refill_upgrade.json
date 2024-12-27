@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:chests"
+    },
+    "D": {
+      "tag": "functionalstorage:drawer"
+    },
+    "P": {
+      "tag": "c:ender_pearls"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "RPR",
+    "PDP",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "morefunctionalstorage:refill_upgrade"
+  }
+}
