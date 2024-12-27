@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.matyrobbrt.morefunctionalstorage.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "SlotItemHandlerAccess"
+  ],
+  "client": [
+    "DrawerInfoGuiAddonAccess"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
