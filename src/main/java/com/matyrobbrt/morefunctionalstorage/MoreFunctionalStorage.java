@@ -7,6 +7,7 @@ import com.hrznstudio.titanium.network.locator.PlayerInventoryFinder;
 import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.data.MFSLang;
 import com.matyrobbrt.morefunctionalstorage.data.MFSModels;
+import com.matyrobbrt.morefunctionalstorage.data.MFSRecipe;
 import com.matyrobbrt.morefunctionalstorage.item.BreakerUpgrade;
 import com.matyrobbrt.morefunctionalstorage.item.FilterConfiguration;
 import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
@@ -146,6 +147,8 @@ public class MoreFunctionalStorage {
     private static void onDataGen(GatherDataEvent event) {
         event.getGenerator().addProvider(event.includeClient(), new MFSModels(event.getGenerator().getPackOutput(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new MFSLang(event.getGenerator().getPackOutput()));
+
+        event.getGenerator().addProvider(event.includeServer(), new MFSRecipe(event.getGenerator().getPackOutput(), event.getLookupProvider()));
     }
 
     private static <T extends BaseUpgradeMenu> MenuType<T> createMenu(MFSUpgrade.MenuFactory factory) {

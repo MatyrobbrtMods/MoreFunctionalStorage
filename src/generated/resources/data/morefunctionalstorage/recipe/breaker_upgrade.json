@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "functionalstorage:drawer"
+    },
+    "P": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "tag": "minecraft:stone_bricks"
+    }
+  },
+  "pattern": [
+    "RSR",
+    "SDS",
+    "RPR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "morefunctionalstorage:breaker_upgrade"
+  }
+}

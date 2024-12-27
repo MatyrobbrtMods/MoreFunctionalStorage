@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "functionalstorage:drawer"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "t": {
+      "tag": "minecraft:dirt"
+    }
+  },
+  "pattern": [
+    "RdR",
+    "dDd",
+    "RtR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "morefunctionalstorage:placer_upgrade"
+  }
+}
