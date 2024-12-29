@@ -13,11 +13,11 @@ import java.util.List;
 
 public enum Texts implements Component {
     DIRECTION("tooltip", "direction", "Direction: %s (%s)"),
-    DIRECTION_SIMPLE("tooltip", "direction_simple", "Direction: %s"),
+    DIRECTION_SIMPLE("tooltip", "direction_simple", "§eDirection§r: %s"),
     SLOT_SELECTED("tooltip", "slot_selected", "Slot is selected as upgrade %s"),
     LCLICK_DESELECT("tooltip", "lclick_deselect", "Left Click to deselect"),
     LCLICK_SELECT("tooltip", "lclick_select", "Left Click to select slot as upgrade %s"),
-    UPGRADE_SPEED("tooltip", "upgrade_speed", "Upgrade speed: operates every %s ticks"),
+    UPGRADE_SPEED("tooltip", "upgrade_speed", "§eUpgrade speed§r: operates every %s ticks"),
     HAS_FILTERS_CONFIGURED("tooltip", "has_filters", "§oHas filters configured§r"),
     HOLD_SHIFT("tooltip", "hold_shift", "Hold §7SHIFT§r for information"),
     RCLICK_CONFIGURE("tooltip", "rclick_configure", "Right click to configure"),
@@ -28,7 +28,7 @@ public enum Texts implements Component {
     TAG_MATCHING("tooltip", "tag_matching", "Tag matching is %s"),
     COMPONENT_MATCHING("tooltip", "component_matching", "Strict NBT matching is %s"),
     WHITELIST_BLACKLIST("tooltip", "whitelist_blacklist", "Current filter mode is %s"),
-    TOOL("tooltip", "tool", "Tool: §d%s§r"),
+    TOOL("tooltip", "tool", "§eTool§r: §d%s§r"),
     NO_TOOL_INSTALLED("tooltip", "no_tool", "§cNo tool is installed! Install a tool for the upgrade to function§r"),
     REFILL_TARGET("tooltip", "refill_target", "Refill target: %s"),
 

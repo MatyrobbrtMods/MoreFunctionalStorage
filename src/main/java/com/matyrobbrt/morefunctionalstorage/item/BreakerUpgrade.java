@@ -47,6 +47,22 @@ public class BreakerUpgrade extends MFSUpgrade {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        if (FMLEnvironment.dist.isClient() && MFSClient.isInsideDrawerUI(stack)) {
+            tooltip.add(Component.empty());
+            tooltip.add(Texts.RCLICK_CONFIGURE.format(ChatFormatting.GRAY));
+        } else {
+            if (!isShiftDown(flagIn)) {
+                tooltip.add(Component.empty());
+                tooltip.add(Texts.HOLD_SHIFT);
+            } else {
+                tooltip.add(Texts.BREAKER_UPGRADE);
+            }
+        }
+    }
+
+    @Override
+    protected void addInformation(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        super.addInformation(stack, context, tooltip, flag);
 
         // If we have ticked the item (so it's not inside JEI) we will display a warning
         if (stack.has(MoreFunctionalStorage.OWNER)) {
@@ -56,16 +72,6 @@ public class BreakerUpgrade extends MFSUpgrade {
                 tooltip.add(Texts.NO_TOOL_INSTALLED);
             } else {
                 tooltip.add(Texts.TOOL.format(tool.getHoverName().copy().withStyle(ChatFormatting.LIGHT_PURPLE)));
-            }
-        }
-
-        if (FMLEnvironment.dist.isClient() && MFSClient.isInsideDrawerUI()) {
-            tooltip.add(Texts.RCLICK_CONFIGURE.format(ChatFormatting.ITALIC));
-        } else {
-            if (!flagIn.hasShiftDown()) {
-                tooltip.add(Texts.HOLD_SHIFT);
-            } else {
-                tooltip.add(Texts.BREAKER_UPGRADE);
             }
         }
     }

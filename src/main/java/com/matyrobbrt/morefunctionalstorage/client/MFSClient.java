@@ -12,6 +12,8 @@ import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.mixin.SlotItemHandlerAccess;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenUpgradeMenuPayload;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -22,6 +24,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.stream.IntStream;
 
 @Mod(value = MoreFunctionalStorage.MOD_ID, dist = Dist.CLIENT)
 public class MFSClient {
@@ -73,7 +77,13 @@ public class MFSClient {
         event.register(MoreFunctionalStorage.REFILL_MENU.get(), RefillUpgradeScreen::new);
     }
 
-    public static boolean isInsideDrawerUI() {
-        return Minecraft.getInstance().screen instanceof BasicAddonScreen bas && bas.getMenu().getProvider() instanceof ControllableDrawerTile<?>;
+    public static boolean isInsideDrawerUI(ItemStack stack) {
+        return Minecraft.getInstance().screen instanceof BasicAddonScreen bas && bas.getMenu().getProvider() instanceof ControllableDrawerTile<?> tile
+                && IntStream.range(0, tile.getUtilitySlotAmount())
+                    .anyMatch(p -> tile.getUtilityUpgrades().getStackInSlot(p) == stack);
+    }
+
+    public static boolean isShiftDown() {
+        return Screen.hasShiftDown();
     }
 }

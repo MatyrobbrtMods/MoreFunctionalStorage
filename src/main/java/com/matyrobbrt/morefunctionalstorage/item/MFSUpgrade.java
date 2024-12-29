@@ -9,6 +9,7 @@ import com.hrznstudio.titanium.block.redstone.RedstoneState;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
+import com.matyrobbrt.morefunctionalstorage.client.MFSClient;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.RelativeDirection;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import org.jetbrains.annotations.Nullable;
@@ -65,6 +67,14 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        addInformation(stack, worldIn, tooltip, flagIn);
+
+        if (stack.has(MoreFunctionalStorage.FILTER)) {
+            tooltip.add(Texts.HAS_FILTERS_CONFIGURED);
+        }
+    }
+
+    protected void addInformation(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Texts.UPGRADE_SPEED.format(
                 Component.literal(String.valueOf(getSpeed(stack))).withStyle(ChatFormatting.GOLD)
         ));
@@ -73,10 +83,6 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
             tooltip.add(Texts.DIRECTION_SIMPLE.format(
                     stack.get(MoreFunctionalStorage.RELATIVE_DIRECTION).getDisplayText().withStyle(ChatFormatting.AQUA)
             ));
-        }
-
-        if (stack.has(MoreFunctionalStorage.FILTER)) {
-            tooltip.add(Texts.HAS_FILTERS_CONFIGURED);
         }
     }
 
@@ -131,6 +137,10 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
 
     public static IRedstoneState getRedstone(Level level, BlockPos pos) {
         return level.getBestNeighborSignal(pos) > 0 ? RedstoneState.ON : RedstoneState.OFF;
+    }
+
+    protected static boolean isShiftDown(TooltipFlag context) {
+        return FMLEnvironment.dist.isClient() ? MFSClient.isShiftDown() : context.hasShiftDown();
     }
 
     public interface MenuFactory {
