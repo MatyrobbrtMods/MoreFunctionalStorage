@@ -3,6 +3,7 @@ package com.matyrobbrt.morefunctionalstorage.jei;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.client.screen.BaseUpgradeScreen;
 import com.matyrobbrt.morefunctionalstorage.item.FilterConfiguration;
+import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -10,9 +11,12 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
+import mezz.jei.api.registration.IIngredientAliasRegistration;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +63,17 @@ public class MFSJei implements IModPlugin {
                 }
             }
         });
+    }
+
+    @Override
+    public void registerIngredientAliases(IIngredientAliasRegistration registration) {
+        for (DeferredHolder<Item, ? extends Item> entry : MoreFunctionalStorage.ITEMS.getEntries()) {
+            if (entry.get() instanceof MFSUpgrade) {
+                registration.addAlias(VanillaTypes.ITEM_STACK, entry.get().getDefaultInstance(), "Drawer Upgrade");
+            }
+        }
+
+        registration.addAlias(VanillaTypes.ITEM_STACK, MoreFunctionalStorage.STONECUTTING_UPGRADE.toStack(), "Stonecutter Upgrade");
     }
 
     @Override

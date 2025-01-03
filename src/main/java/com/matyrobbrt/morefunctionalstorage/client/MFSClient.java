@@ -8,6 +8,7 @@ import com.matyrobbrt.morefunctionalstorage.client.screen.BaseUpgradeScreen;
 import com.matyrobbrt.morefunctionalstorage.client.screen.BreakerUpgradeScreen;
 import com.matyrobbrt.morefunctionalstorage.client.screen.PlacerUpgradeScreen;
 import com.matyrobbrt.morefunctionalstorage.client.screen.RefillUpgradeScreen;
+import com.matyrobbrt.morefunctionalstorage.client.screen.StonecuttingUpgradeScreen;
 import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.mixin.SlotItemHandlerAccess;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenUpgradeMenuPayload;
@@ -75,6 +76,7 @@ public class MFSClient {
         event.register(MoreFunctionalStorage.PLACER_MENU.get(), PlacerUpgradeScreen::new);
         event.register(MoreFunctionalStorage.BREAKER_MENU.get(), BreakerUpgradeScreen::new);
         event.register(MoreFunctionalStorage.REFILL_MENU.get(), RefillUpgradeScreen::new);
+        event.register(MoreFunctionalStorage.STONECUTTING_MENU.get(), StonecuttingUpgradeScreen::new);
     }
 
     public static boolean isInsideDrawerUI(ItemStack stack) {

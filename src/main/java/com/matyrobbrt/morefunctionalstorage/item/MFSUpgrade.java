@@ -3,7 +3,6 @@ package com.matyrobbrt.morefunctionalstorage.item;
 import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import com.buuz135.functionalstorage.item.FunctionalUpgradeItem;
 import com.hrznstudio.titanium.api.redstone.IRedstoneState;
-import com.hrznstudio.titanium.block.RotatableBlock;
 import com.hrznstudio.titanium.block.redstone.RedstoneAction;
 import com.hrznstudio.titanium.block.redstone.RedstoneState;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
@@ -27,13 +26,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public abstract class MFSUpgrade extends FunctionalUpgradeItem {
+    @SuppressWarnings("unchecked")
+    private static final List<Integer>[] SLOT_LISTS = IntStream.rangeClosed(1, 4)
+            .mapToObj(i -> IntStream.range(0, i).boxed().toList())
+            .toArray(List[]::new);
+
     public final MenuFactory factory;
 
     protected MFSUpgrade(Properties properties, MenuFactory factory) {
@@ -53,6 +57,8 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
         return 1;
     }
 
+    protected abstract Component getInfoTooltip();
+
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (hasOwner() && !level.isClientSide() && !stack.has(MoreFunctionalStorage.OWNER) && entity instanceof Player pl) {
@@ -71,6 +77,18 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
 
         if (stack.has(MoreFunctionalStorage.FILTER)) {
             tooltip.add(Texts.HAS_FILTERS_CONFIGURED);
+        }
+
+        if (FMLEnvironment.dist.isClient() && MFSClient.isInsideDrawerUI(stack)) {
+            tooltip.add(Component.empty());
+            tooltip.add(Texts.RCLICK_CONFIGURE.format(ChatFormatting.GRAY));
+        } else {
+            if (!isShiftDown(flagIn)) {
+                tooltip.add(Component.empty());
+                tooltip.add(Texts.HOLD_SHIFT);
+            } else {
+                tooltip.add(getInfoTooltip());
+            }
         }
     }
 
@@ -114,6 +132,22 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
                 }
             }
         }
+    }
+
+    protected List<Integer> getEffectiveSlots(ItemStack upgradeStack, ControllableDrawerTile<?> drawer) {
+        var selectedSlots = upgradeStack.get(MoreFunctionalStorage.SELECTED_SLOTS);
+
+        if (selectedSlots == null) {
+            var cap = drawer.getItemHandler(null);
+            var slotCount = cap.getSlots();
+            if (slotCount > 0 && slotCount <= 4) {
+                return SLOT_LISTS[slotCount - 1];
+            }
+
+            return IntStream.range(0, slotCount).boxed().toList();
+        }
+
+        return selectedSlots;
     }
 
     @Nullable

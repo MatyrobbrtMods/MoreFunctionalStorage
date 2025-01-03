@@ -24,5 +24,9 @@ public class MFSConfig {
             .comment("The base speed (in ticks) of the Dimensional Refill Upgrade")
             .defineInRange("baseDimensionalRefillSpeed", 60, 0, Integer.MAX_VALUE);
 
+    public static final ModConfigSpec.IntValue BASE_STONECUTTING_SPEED = BUILDER
+            .comment("The base speed (in ticks) of the Stonecutting Upgrade")
+            .defineInRange("baseStonecuttingSpeed", 60, 0, Integer.MAX_VALUE);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

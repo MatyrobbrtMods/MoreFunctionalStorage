@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:stonecutter"
+    },
+    "D": {
+      "tag": "functionalstorage:drawer"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "RDR",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "morefunctionalstorage:stonecutting_upgrade"
+  }
+}

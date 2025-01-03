@@ -13,10 +13,12 @@ import com.matyrobbrt.morefunctionalstorage.item.FilterConfiguration;
 import com.matyrobbrt.morefunctionalstorage.item.MFSUpgrade;
 import com.matyrobbrt.morefunctionalstorage.item.PlacerUpgrade;
 import com.matyrobbrt.morefunctionalstorage.item.RefillUpgrade;
+import com.matyrobbrt.morefunctionalstorage.item.StonecuttingUpgrade;
 import com.matyrobbrt.morefunctionalstorage.menu.BaseUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.menu.PlacerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.menu.RefillUpgradeMenu;
+import com.matyrobbrt.morefunctionalstorage.menu.StonecuttingUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenDrawerMenuPayload;
 import com.matyrobbrt.morefunctionalstorage.packet.OpenUpgradeMenuPayload;
 import com.matyrobbrt.morefunctionalstorage.packet.ReplaceUpgradePayload;
@@ -59,7 +61,7 @@ import java.util.List;
 @Mod(MoreFunctionalStorage.MOD_ID)
 public class MoreFunctionalStorage {
     public static final String MOD_ID = "morefunctionalstorage";
-    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, MOD_ID);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MOD_ID);
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MOD_ID);
@@ -112,10 +114,12 @@ public class MoreFunctionalStorage {
     public static final DeferredHolder<MenuType<?>, MenuType<PlacerUpgradeMenu>> PLACER_MENU = MENUS.register("placer_upgrade", () -> createMenu(PlacerUpgradeMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<BreakerUpgradeMenu>> BREAKER_MENU = MENUS.register("breaker_upgrade", () -> createMenu(BreakerUpgradeMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<RefillUpgradeMenu>> REFILL_MENU = MENUS.register("refill_upgrade", () -> createMenu(RefillUpgradeMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<StonecuttingUpgradeMenu>> STONECUTTING_MENU = MENUS.register("stonecutting_upgrade", () -> createMenu(StonecuttingUpgradeMenu::new));
     public static final DeferredItem<PlacerUpgrade> PLACER_UPGRADE = ITEMS.register("placer_upgrade", () -> new PlacerUpgrade(new Item.Properties()));
     public static final DeferredItem<BreakerUpgrade> BREAKER_UPGRADE = ITEMS.register("breaker_upgrade", () -> new BreakerUpgrade(new Item.Properties()));
     public static final DeferredItem<RefillUpgrade> REFILL_UPGRADE = ITEMS.register("refill_upgrade", () -> new RefillUpgrade(new Item.Properties(), false));
     public static final DeferredItem<RefillUpgrade> DIMENSIONAL_REFILL_UPGRADE = ITEMS.register("dimensional_refill_upgrade", () -> new RefillUpgrade(new Item.Properties(), true));
+    public static final DeferredItem<StonecuttingUpgrade> STONECUTTING_UPGRADE = ITEMS.register("stonecutting_upgrade", () -> new StonecuttingUpgrade(new Item.Properties()));
 
     public static final DeferredItem<Item> SPEED_UPGRADE_AUGMENT = ITEMS.register("speed_upgrade_augment", () -> new Item(new Item.Properties()) {
         {

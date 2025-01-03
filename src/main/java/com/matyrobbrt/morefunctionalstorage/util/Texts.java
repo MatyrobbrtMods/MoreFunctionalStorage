@@ -47,6 +47,7 @@ public enum Texts implements Component {
     PLACER_UPGRADE("tooltip.item", "placer_upgrade", "Places blocks from the drawer. Right click inside a drawer menu to configure"),
     REFILL_UPGRADE("tooltip.item", "refill_upgrade", "Refill items from the drawer into the player's hotbar, inventory or ender chest.\nRight click inside a drawer menu to configure"),
     BREAKER_UPGRADE("tooltip.item", "breaker_upgrade", "Breaks blocks and inserts them into the drawer. Right click inside a drawer menu to configure\nRequires a tool to be provided (durability will not be consumed)"),
+    STONECUTTING_UPGRADE("tooltip.item", "stonecutting_upgrade", "Stonecuts items from the drawer.\nThe output can be selected either by locking the slots or using the filter."),
 
     REFILL_HOTBAR("tooltip.refill_target", "hotbar", "hotbar"),
     REFILL_MAIN_INV("tooltip.refill_target", "main_inv", "main inventory"),

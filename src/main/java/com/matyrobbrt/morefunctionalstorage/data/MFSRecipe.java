@@ -1,6 +1,5 @@
 package com.matyrobbrt.morefunctionalstorage.data;
 
-import com.buuz135.functionalstorage.data.FunctionalStorageItemTagsProvider;
 import com.buuz135.functionalstorage.util.StorageTags;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import net.minecraft.core.HolderLookup;
@@ -62,6 +61,16 @@ public class MFSRecipe extends RecipeProvider {
                 .define('W', Items.WITHER_SKELETON_SKULL)
                 .define('U', MoreFunctionalStorage.REFILL_UPGRADE)
                 .define('P', Items.ENDER_EYE)
+                .unlockedBy("has_drawer", has(StorageTags.DRAWER))
+                .save(output);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, MoreFunctionalStorage.STONECUTTING_UPGRADE.toStack())
+                .pattern(" R ")
+                .pattern("RDR")
+                .pattern(" C ")
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('D', StorageTags.DRAWER)
+                .define('C', Items.STONECUTTER)
                 .unlockedBy("has_drawer", has(StorageTags.DRAWER))
                 .save(output);
 
