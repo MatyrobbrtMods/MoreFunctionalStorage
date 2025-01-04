@@ -37,6 +37,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -145,9 +146,23 @@ public class MoreFunctionalStorage {
 
         bus.addListener((final FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             PlayerInventoryFinder.FINDERS.put("mfs_drawer_upgrade", new PlayerInventoryFinder(
-                    player -> ((BaseUpgradeMenu) player.containerMenu).drawer.getUtilityUpgrades().getSlots(),
-                    (player, integer) -> ((BaseUpgradeMenu) player.containerMenu).drawer.getUtilityUpgrades().getStackInSlot(integer),
-                    (player, i, itemStack) -> ((BaseUpgradeMenu) player.containerMenu).drawer.getUtilityUpgrades().setStackInSlot(i, itemStack)
+                    player -> {
+                        if (player.containerMenu instanceof BaseUpgradeMenu bm) {
+                            return bm.drawer.getUtilityUpgrades().getSlots();
+                        }
+                        return 0;
+                    },
+                    (player, integer) -> {
+                        if (player.containerMenu instanceof BaseUpgradeMenu bm) {
+                            return bm.drawer.getUtilityUpgrades().getStackInSlot(integer);
+                        }
+                        return ItemStack.EMPTY;
+                    },
+                    (player, i, itemStack) -> {
+                        if (player.containerMenu instanceof BaseUpgradeMenu bm) {
+                            bm.drawer.getUtilityUpgrades().setStackInSlot(i, itemStack);
+                        }
+                    }
             ));
         }));
 
