@@ -1,11 +1,9 @@
 package com.matyrobbrt.morefunctionalstorage.item;
 
 import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
-import com.hrznstudio.titanium.block.RotatableBlock;
 import com.matyrobbrt.morefunctionalstorage.MFSConfig;
 import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
-import com.matyrobbrt.morefunctionalstorage.client.MFSClient;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
 import net.minecraft.ChatFormatting;
@@ -21,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -72,7 +69,7 @@ public class BreakerUpgrade extends MFSUpgrade {
         var tool = toolContents.nonEmptyStream().findFirst().orElse(null);
         if (tool == null) return;
 
-        var dir = getDirection(level.getBlockState(drawerPos).getValue(RotatableBlock.FACING_HORIZONTAL), upgradeStack);
+        var dir = getDirection(drawer, upgradeStack);
         var target = drawerPos.relative(dir);
         if (level.getBlockState(target).isEmpty()) return;
 

@@ -112,7 +112,7 @@ public class BaseUpgradeScreen<T extends BaseUpgradeMenu> extends BasicContainer
                 @Override
                 public List<Component> getTooltipLines() {
                     var dir = getDir();
-                    var absolute = dir.getAbsolute(menu.drawer.getFacingDirection());
+                    var absolute = dir.getAbsolute(menu.drawer);
                     return List.of(Texts.DIRECTION.format(
                             dir.getDisplayText().withStyle(ChatFormatting.AQUA),
                             Component.translatable(WordUtils.capitalize(absolute.getSerializedName()))));

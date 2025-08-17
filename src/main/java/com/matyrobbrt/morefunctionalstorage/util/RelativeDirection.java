@@ -1,5 +1,7 @@
 package com.matyrobbrt.morefunctionalstorage.util;
 
+import com.buuz135.functionalstorage.block.Drawer;
+import com.buuz135.functionalstorage.block.tile.ControllableDrawerTile;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,12 +23,28 @@ public enum RelativeDirection implements StringRepresentable {
         this.serialized = name().toLowerCase(Locale.ROOT);
     }
 
-    public Direction getAbsolute(Direction facing) {
+    public Direction getAbsolute(ControllableDrawerTile<?> drawer) {
+        var facing = drawer.getFacingDirection();
+        if (facing.getAxis() == Direction.Axis.Y) {
+            var orientated = drawer.getBlockState().getOptionalValue(Drawer.FACING_ALL).orElse(Direction.NORTH);
+            return switch (this) {
+                case FRONT -> facing;
+                case BACK -> facing.getOpposite();
+
+                case UP -> orientated;
+                case DOWN -> orientated.getOpposite();
+
+                case LEFT -> orientated.getCounterClockWise();
+                case RIGHT -> orientated.getClockWise();
+            };
+        }
+
         return switch (this) {
-            case UP -> Direction.UP;
-            case DOWN -> Direction.DOWN;
             case FRONT -> facing;
             case BACK -> facing.getOpposite();
+
+            case UP -> Direction.UP;
+            case DOWN -> Direction.DOWN;
             case LEFT -> facing.getClockWise();
             case RIGHT -> facing.getCounterClockWise();
         };

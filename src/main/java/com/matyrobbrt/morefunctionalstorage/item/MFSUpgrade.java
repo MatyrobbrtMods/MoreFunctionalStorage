@@ -19,6 +19,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.parsing.packrat.Control;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -165,8 +166,8 @@ public abstract class MFSUpgrade extends FunctionalUpgradeItem {
                 component.getSlots() < 1) ? 0 : component.getStackInSlot(0).getCount() * MFSConfig.SPEED_AUGMENT_REDUCTION.getAsInt()), 1);
     }
 
-    public static Direction getDirection(Direction facing, ItemStack stack) {
-        return stack.getOrDefault(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT).getAbsolute(facing);
+    public static Direction getDirection(ControllableDrawerTile<?> drawer, ItemStack stack) {
+        return stack.getOrDefault(MoreFunctionalStorage.RELATIVE_DIRECTION, RelativeDirection.FRONT).getAbsolute(drawer);
     }
 
     public static IRedstoneState getRedstone(Level level, BlockPos pos) {
