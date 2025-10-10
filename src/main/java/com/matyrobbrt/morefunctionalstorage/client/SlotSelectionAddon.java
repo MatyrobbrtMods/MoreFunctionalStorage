@@ -23,7 +23,7 @@ public class SlotSelectionAddon extends DrawerInfoGuiAddon {
     private final BaseUpgradeScreen<?> screen;
     private final boolean source;
     public SlotSelectionAddon(int x, int y, DrawerInfoGuiAddonAccess acc, BaseUpgradeScreen<?> screen, boolean source) {
-        super(x, y, acc.mfs$getGui(), acc.mfs$getSlotAmount(), acc.mfs$getSlotPosition(), acc.mfs$getSlotStack(), acc.mfs$getSlotMaxAmount());
+        super(x, y, acc.mfs$getGui(), acc.mfs$getSlotAmount(), acc.mfs$getSlotPosition(), acc.mfs$getSlotStack(), acc.mfs$getSlotMaxAmount(), acc.mfs$getSlotLockedDisplay());
         this.screen = screen;
         this.source = source;
     }

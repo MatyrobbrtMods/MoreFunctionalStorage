@@ -21,4 +21,6 @@ public interface DrawerInfoGuiAddonAccess {
     Function<Integer, ItemStack> mfs$getSlotStack();
     @Accessor("slotMaxAmount")
     Function<Integer, Integer> mfs$getSlotMaxAmount();
+    @Accessor("slotLockedDisplay")
+    Function<Integer, ItemStack> mfs$getSlotLockedDisplay();
 }
