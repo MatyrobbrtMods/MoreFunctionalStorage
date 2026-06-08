@@ -6,7 +6,6 @@ import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
-import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -23,7 +22,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
