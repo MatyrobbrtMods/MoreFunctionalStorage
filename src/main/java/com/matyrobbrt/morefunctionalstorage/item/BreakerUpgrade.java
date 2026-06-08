@@ -6,6 +6,7 @@ import com.matyrobbrt.morefunctionalstorage.MoreFunctionalStorage;
 import com.matyrobbrt.morefunctionalstorage.attach.UpgradeDataManager;
 import com.matyrobbrt.morefunctionalstorage.menu.BreakerUpgradeMenu;
 import com.matyrobbrt.morefunctionalstorage.util.Texts;
+import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.items.IItemHandler;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +83,13 @@ public class BreakerUpgrade extends MFSUpgrade {
         var player = getFakePlayer(level, upgradeStack);
 
         BlockState blockstate = level.getBlockState(target);
-        if (!tool.isCorrectToolForDrops(blockstate)) return;
+
+        var isCorrectTool = tool.isCorrectToolForDrops(blockstate);
+        // Need this check for blocks like sugar canes
+        var needsTool = blockstate.requiresCorrectToolForDrops();
+
+        // If tool is required but is not provided. Do not do anything
+        if (needsTool && !isCorrectTool) return;
 
         LootParams.Builder lootParams = new LootParams.Builder((ServerLevel) level)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(target))
