@@ -81,7 +81,13 @@ public class BreakerUpgrade extends MFSUpgrade {
         var player = getFakePlayer(level, upgradeStack);
 
         BlockState blockstate = level.getBlockState(target);
-        if (!tool.isCorrectToolForDrops(blockstate)) return;
+
+        var isCorrectTool = tool.isCorrectToolForDrops(blockstate);
+        // Need this check for blocks like sugar canes
+        var needsTool = blockstate.requiresCorrectToolForDrops();
+
+        // If tool is required but is not provided. Do not do anything
+        if (needsTool && !isCorrectTool) return;
 
         LootParams.Builder lootParams = new LootParams.Builder((ServerLevel) level)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(target))
